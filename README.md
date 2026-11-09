@@ -12,6 +12,24 @@ Explored parts turn green and are remembered on the device; finding all 18 earns
 
 No build step, no libraries, works offline once loaded.
 
+## The "Read to me" voice
+
+The cards are read by a natural-sounding AI voice (Kokoro, free and open source),
+pre-recorded as small MP3s in `audio/airport/` (about 40 s and 180 KB each).
+If a recording is missing, or the iPad is offline, it falls back to the iPad's own voice.
+
+When you change a card's text or add a new model, record it again:
+
+```
+pip install kokoro-onnx soundfile numpy
+python3 tools/make_audio.py airport            # voice "af_heart"
+python3 tools/make_audio.py airport bf_emma    # or a British voice
+```
+(needs Node.js and ffmpeg; the first run downloads the ~350 MB voice model into `tools/models/`, which git ignores).
+
+Tip: the fallback sounds much better if you download an "Enhanced" or "Premium" voice on each iPad:
+Settings → Accessibility → Spoken Content → Voices → English.
+
 ## Put it online with GitHub Pages
 
 1. Create a new repository on GitHub (e.g. `peek-inside`). It can be public, or private if your plan allows Pages for private repos.
@@ -50,6 +68,7 @@ then open http://localhost:8000
    drawn in the right order.
 4. Add `<script src="js/things/castle.js"></script>` in `index.html`, add the file to `FILES` in `sw.js`,
    and remove it from the "Coming soon" list in `js/app.js`.
+5. Record its voice: `python3 tools/make_audio.py castle`.
 
 ## Files
 
@@ -59,6 +78,8 @@ css/style.css         all styling
 js/iso.js             isometric drawing helpers + pinch/drag/zoom
 js/app.js             home screen, info cards, progress, read-aloud
 js/things/airport.js  the airport model and its texts
+audio/airport/        recorded voice for each card
+tools/                script to re-record the voice
 manifest.json, sw.js  home-screen app + offline support
 icons/                app icons
 ```

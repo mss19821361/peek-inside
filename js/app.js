@@ -152,7 +152,7 @@
       panel.classList.add('open');
       panel.querySelector('.card-body').scrollTop = 0;
       panel.querySelector('#closeBtn').onclick = closePanel;
-      panel.querySelector('#speakBtn').onclick = e => speak(e.currentTarget, [p.name, p.what, p.does, ...(p.steps || []).map(s => s[1]), 'Wow fact! ' + p.fact].join('. '));
+      panel.querySelector('#speakBtn').onclick = e => speak(e.currentTarget, [p.name, p.what, p.does, ...(p.steps || []).map(s => s[1]), 'Wow fact! ' + p.fact].join('. '), `audio/${t.id}/${p.id}.mp3`);
       panel.querySelector('#nextBtn').onclick = () => {
         const rest = t.parts.slice(i + 1).concat(t.parts.slice(0, i + 1));
         const nxt = rest.find(q => !explored.has(q.id)) || t.parts[(i + 1) % t.parts.length];
@@ -193,22 +193,43 @@
     cleanup = () => { cancelAnimationFrame(raf); clearTimeout(hintTimer); view.destroy(); document.removeEventListener('keydown', onKey); };
   }
 
-  /* ---------- Read aloud ---------- */
+  /* ---------- Read aloud ----------
+     Plays the recorded voice file audio/<thing>/<part>.mp3.
+     If it is missing (e.g. you just added a new part), falls back to the device voice. */
   let speakingBtn = null;
+  const player = new Audio();
+  player.preload = 'auto';
+  function resetBtn() { if (speakingBtn) { speakingBtn.textContent = '🔊 Read to me'; speakingBtn = null; } }
   function stopSpeaking() {
+    player.pause();
     if ('speechSynthesis' in window) speechSynthesis.cancel();
-    if (speakingBtn) { speakingBtn.textContent = '🔊 Read to me'; speakingBtn = null; }
+    resetBtn();
   }
-  function speak(btn, text) {
-    if (!('speechSynthesis' in window)) { btn.textContent = '🔇 Not available'; return; }
+  function speak(btn, text, src) {
     if (speakingBtn === btn) { stopSpeaking(); return; }
     stopSpeaking();
-    const u = new SpeechSynthesisUtterance(text.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu, ''));
-    u.lang = 'en-GB'; u.rate = 0.92; u.pitch = 1.05;
-    u.onend = () => { if (speakingBtn === btn) stopSpeaking(); };
     speakingBtn = btn; btn.textContent = '⏹ Stop';
+    player.onended = () => { if (speakingBtn === btn) resetBtn(); };
+    player.onerror = () => { if (speakingBtn === btn) deviceVoice(btn, text); };
+    player.src = src;
+    player.currentTime = 0;
+    const pr = player.play();
+    if (pr && pr.catch) pr.catch(() => { if (speakingBtn === btn) deviceVoice(btn, text); });
+  }
+  function bestVoice() {
+    const vs = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang));
+    const score = v => (/premium/i.test(v.name) ? 4 : 0) + (/enhanced/i.test(v.name) ? 3 : 0) + (/en-GB/i.test(v.lang) ? 1 : 0) + (/Ava|Zoe|Serena|Kate|Samantha/.test(v.name) ? 1 : 0);
+    return vs.sort((a, b) => score(b) - score(a))[0];
+  }
+  function deviceVoice(btn, text) {
+    if (!('speechSynthesis' in window)) { resetBtn(); return; }
+    const u = new SpeechSynthesisUtterance(text.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu, ''));
+    const v = bestVoice(); if (v) { u.voice = v; u.lang = v.lang; } else u.lang = 'en-GB';
+    u.rate = 0.92;
+    u.onend = () => { if (speakingBtn === btn) resetBtn(); };
     speechSynthesis.speak(u);
   }
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopSpeaking(); });
 
   /* ---------- Boot ---------- */
   document.addEventListener('gesturestart', e => e.preventDefault());
