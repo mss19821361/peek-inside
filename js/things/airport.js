@@ -522,6 +522,7 @@
     id: 'airport', name: 'Airport', emoji: '✈️', color: '#29B6F6', color2: '#0277BD',
     tagline: 'Where planes take off and land',
     viewBox: { x: -640, y: -60, w: 1440, h: 920 },
+    phoneZoom: 1.7,
     parts, defs, build
   });
 })();

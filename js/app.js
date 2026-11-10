@@ -5,7 +5,7 @@
 
   const COMING = [
     { emoji: '🚢', name: 'Ship' }, { emoji: '🏰', name: 'Castle' }, { emoji: '🚀', name: 'Rocket' },
-    { emoji: '🫀', name: 'Human Body' }, { emoji: '🚂', name: 'Train' }, { emoji: '🌋', name: 'Volcano' }
+    { emoji: '🚂', name: 'Train' }, { emoji: '🌋', name: 'Volcano' }
   ];
 
   const store = {
@@ -20,6 +20,7 @@
   function route() {
     if (cleanup) { cleanup(); cleanup = null; }
     stopSpeaking();
+    if (window.PeekAsk) PeekAsk.close();
     const id = location.hash.replace(/^#\/?/, '');
     const t = THINGS.find(t => t.id === id);
     t ? showThing(t) : showHome();
@@ -39,22 +40,27 @@
     }).join('') + COMING.map(c => `<div class="tile soon"><span class="tile-emoji">${c.emoji}</span><span class="tile-name">${esc(c.name)}</span><span class="tile-tag">Coming soon</span><span class="lock">🔒</span></div>`).join('');
     app.innerHTML = `<div class="home">
       <div class="clouds"><i></i><i></i><i></i></div>
+      <div class="home-mail">${window.PeekAsk ? PeekAsk.mailButton() : ''}</div>
       <header><h1>Peek Inside!</h1><p>Tap a picture to see how it works</p></header>
       <main class="grid">${tiles}</main>
     </div>`;
     app.querySelectorAll('.tile[data-id]').forEach(b => b.addEventListener('click', () => { location.hash = '#/' + b.dataset.id; }));
+    if (window.PeekAsk) PeekAsk.wire(app, () => null);
   }
 
   /* ---------- Scene ---------- */
   function showThing(t) {
     const explored = store.get(t.id);
-    app.innerHTML = `<div class="scene" style="--accent:${t.color};--accent2:${t.color2}">
+    const project = t.project || (a => ISO.P(...a));
+    const L = Object.assign({ what: '🤔 What is it?', does: '⚙️ What happens here?', fact: '🤩 Wow fact!', who: '👷 Who works here?' }, t.labels || {});
+    app.innerHTML = `<div class="scene" style="--accent:${t.color};--accent2:${t.color2};${t.bg ? 'background:' + t.bg : ''}">
       <div class="clouds"><i></i><i></i><i></i></div>
       <svg id="svg" xmlns="http://www.w3.org/2000/svg"><defs id="defs"></defs><g id="world"></g><g id="pins"></g></svg>
       <div class="topbar">
         <button class="round" id="homeBtn" aria-label="Home">🏠</button>
         <div class="chip title">${t.emoji} ${esc(t.name)}</div>
         <div class="chip prog" id="prog"></div>
+        ${window.PeekAsk ? PeekAsk.mailButton() : ''}
       </div>
       <div class="zoom">
         <button id="zin" aria-label="Zoom in">＋</button>
@@ -74,7 +80,7 @@
     // Pins
     const pinEls = {};
     t.parts.forEach(p => {
-      const [x, y] = ISO.P(...p.anchor);
+      const [x, y] = project(p.anchor);
       const pg = ISO.el('g', { class: 'pin', 'data-part': p.id, transform: `translate(${x.toFixed(1)},${y.toFixed(1)})` }, pinsLayer);
       const sc = ISO.el('g', { class: 'pin-scale' }, pg);
       ISO.el('ellipse', { cx: 0, cy: 0, rx: 7, ry: 3.5, fill: 'rgba(0,0,0,0.25)' }, sc);
@@ -112,11 +118,11 @@
     });
 
     // phones in portrait: start a bit closer in
-    if (window.innerWidth < 700 && window.innerHeight > window.innerWidth) view.setZoom(1.7);
+    if (t.phoneZoom && window.innerWidth < 700 && window.innerHeight > window.innerWidth) view.setZoom(t.phoneZoom);
     scalePins(view.zoom());
 
     function focusOn(p) {
-      const [ax, ay] = ISO.P(...p.anchor);
+      const [ax, ay] = project(p.anchor);
       const v = view.view(), wide = window.innerWidth >= 760;
       const w = Math.min(v.w, (view.zoom() < 1.5 ? v.w / 1.6 : v.w));
       const h = w * v.h / v.w;
@@ -140,11 +146,12 @@
         <div class="card-head"><span class="big">${p.emoji}</span><div><h2>${esc(p.name)}</h2><p>${esc(p.short)}</p></div>
           <button class="x" id="closeBtn" aria-label="Close">✕</button></div>
         <div class="card-body">
-          <section><h3>🤔 What is it?</h3><p>${esc(p.what)}</p></section>
-          <section><h3>⚙️ What happens here?</h3><p>${esc(p.does)}</p>${steps}</section>
-          <section class="fact"><h3>🤩 Wow fact!</h3><p>${esc(p.fact)}</p></section>
-          <section><h3>👷 Who works here?</h3><p>${esc(p.who)}</p></section>
+          <section><h3>${L.what}</h3><p>${esc(p.what)}</p></section>
+          <section><h3>${L.does}</h3><p>${esc(p.does)}</p>${steps}</section>
+          <section class="fact"><h3>${L.fact}</h3><p>${esc(p.fact)}</p></section>
+          <section><h3>${L.who}</h3><p>${esc(p.who)}</p></section>
         </div>
+        ${window.PeekAsk && PeekAsk.enabled ? '<button class="askbtn" id="askBtn">❓ I have a question!</button>' : ''}
         <div class="card-foot">
           <button class="btn" id="speakBtn">🔊 Read to me</button>
           <button class="btn primary" id="nextBtn">Next ➜</button>
@@ -152,6 +159,8 @@
       panel.classList.add('open');
       panel.querySelector('.card-body').scrollTop = 0;
       panel.querySelector('#closeBtn').onclick = closePanel;
+      const askBtn = panel.querySelector('#askBtn');
+      if (askBtn) askBtn.onclick = () => { stopSpeaking(); PeekAsk.openAsk(t, p); };
       panel.querySelector('#speakBtn').onclick = e => speak(e.currentTarget, [p.name, p.what, p.does, ...(p.steps || []).map(s => s[1]), 'Wow fact! ' + p.fact].join('. '), `audio/${t.id}/${p.id}.mp3`);
       panel.querySelector('#nextBtn').onclick = () => {
         const rest = t.parts.slice(i + 1).concat(t.parts.slice(0, i + 1));
@@ -182,6 +191,7 @@
     function hideHint() { hint.classList.add('gone'); }
 
     app.querySelector('#homeBtn').onclick = () => { location.hash = ''; };
+    if (window.PeekAsk) PeekAsk.wire(app, () => t);
     app.querySelector('#zin').onclick = () => view.zoomBy(1.5);
     app.querySelector('#zout').onclick = () => view.zoomBy(1 / 1.5);
     app.querySelector('#zhome').onclick = () => view.home(true);
@@ -209,6 +219,7 @@
     if (speakingBtn === btn) { stopSpeaking(); return; }
     stopSpeaking();
     speakingBtn = btn; btn.textContent = '⏹ Stop';
+    if (!src) { deviceVoice(btn, text); return; }
     player.onended = () => { if (speakingBtn === btn) resetBtn(); };
     player.onerror = () => { if (speakingBtn === btn) deviceVoice(btn, text); };
     player.src = src;
@@ -230,12 +241,13 @@
     speechSynthesis.speak(u);
   }
   document.addEventListener('visibilitychange', () => { if (document.hidden) stopSpeaking(); });
+  window.PeekVoice = { say: (btn, text) => speak(btn, text, null), stop: stopSpeaking };
 
   /* ---------- Boot ---------- */
   document.addEventListener('gesturestart', e => e.preventDefault());
   document.addEventListener('dblclick', e => e.preventDefault());
   window.addEventListener('hashchange', route);
-  window.addEventListener('DOMContentLoaded', route);
+  window.addEventListener('DOMContentLoaded', () => { route(); if (window.PeekAsk) PeekAsk.start(); });
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
     window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
   }

@@ -1,0 +1,17 @@
+// ===================== PEEK INSIDE — ANSWERS =====================
+// Each question email has a code like #K7P2. To answer, add a block:
+//
+//   # K7P2
+//   Your answer here. It can be several lines.
+//   Leave an empty line to start a new paragraph.
+//   picture: ✈️🛞☁️
+//   from: Love, Dad
+//
+// "picture:" is optional: some emojis, OR the name of an image you
+// uploaded into the "answers" folder (e.g. picture: wheels.jpg),
+// OR a full https:// link to an image.
+// "from:" is optional (otherwise the SIGNATURE in js/config.js is used).
+// Lines starting with // are ignored. Then press "Commit changes".
+// The iPads show the new answer within a few minutes.
+// ==================================================================
+
