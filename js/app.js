@@ -5,7 +5,7 @@
 
   const COMING = [
     { emoji: '🚢', name: 'Ship' }, { emoji: '🏰', name: 'Castle' }, { emoji: '🚀', name: 'Rocket' },
-    { emoji: '🚂', name: 'Train' }, { emoji: '🌋', name: 'Volcano' }
+    { emoji: '🌋', name: 'Volcano' }
   ];
 
   const store = {

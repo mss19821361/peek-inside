@@ -7,7 +7,7 @@
                  Left empty, it is worked out automatically on github.io.
    SIGNATURE:    how answer letters are signed (an answer can override it with "from:").  */
 window.PEEK_CONFIG = {
-  PARENT_EMAIL: 'shahraeeni@yahoo.com',
+  PARENT_EMAIL: '',
   GITHUB_REPO: '',
   SIGNATURE: 'Love, Dad',
   SPEECH_LANG: 'en-GB'

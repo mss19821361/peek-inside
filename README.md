@@ -13,6 +13,12 @@ nose, mouth & teeth, lungs, heart, blood vessels, stomach, liver, small and larg
 bladder, bones, muscles, nerves and skin. The heart beats, the lungs breathe, blood flows, a bite of food
 slides down to the stomach and nerve signals zip down the leg. Each card ends with a "Keep it healthy" tip.
 
+Third model: **Trains**, a railway island with a station. It has 18 parts: passenger train, driver's cab,
+high-speed train, freight train, steam train, overhead wires, rails & wheels, points, signals, level
+crossing, platform, station building, station clock, footbridge, signal box, tunnel, bridge and depot.
+A high-speed train zooms out of the tunnel, a freight train rolls by, a steam train puffs smoke along the
+heritage line, the level-crossing barriers come down when a train is near and the signal turns green.
+
 Explored parts turn green and are remembered on the device; finding all 18 earns a trophy.
 
 No build step, no libraries, works offline once loaded.
@@ -121,6 +127,7 @@ css/style.css         all styling
 js/iso.js             isometric drawing helpers + pinch/drag/zoom
 js/app.js             home screen, info cards, progress, read-aloud
 js/things/airport.js  the airport model and its texts (3D isometric)
+js/things/trains.js   the railway model and its texts (3D isometric)
 js/things/body.js     the human body model and its texts (flat drawing, uses project: a => a)
 js/config.js          your settings (email, signature)
 js/ask.js             question sheet, mailbox and letters

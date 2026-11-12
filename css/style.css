@@ -260,3 +260,5 @@ button { font-family: inherit; color: inherit; cursor: pointer; border: 0; }
 .flow { stroke-dasharray: 5 16; animation: flow 1.1s linear infinite; }
 .flow.back { animation-direction: reverse; }
 @keyframes flow { to { stroke-dashoffset: -21; } }
+.ripple { animation: ripple 3s ease-in-out infinite; }
+@keyframes ripple { 50% { opacity: .35; } }
