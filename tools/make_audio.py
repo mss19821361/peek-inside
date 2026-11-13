@@ -27,7 +27,7 @@ def models():
     return Kokoro(os.path.join(MODELS, 'kokoro-v1.0.onnx'), os.path.join(MODELS, 'voices-v1.0.bin'))
 
 def clean(t):
-    return re.sub(r'"', '', t.replace('&', 'and').replace('!.', '!').replace('°', ' degrees'))
+    return re.sub(r'"', '', t.replace('&', 'and').replace('!.', '!').replace('°C', ' degrees Celsius').replace('°', ' degrees'))
 
 def main():
     thing = sys.argv[1]; voice = sys.argv[2] if len(sys.argv) > 2 else 'af_heart'

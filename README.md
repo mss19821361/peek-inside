@@ -19,6 +19,12 @@ crossing, platform, station building, station clock, footbridge, signal box, tun
 A high-speed train zooms out of the tunnel, a freight train rolls by, a steam train puffs smoke along the
 heritage line, the level-crossing barriers come down when a train is near and the signal turns green.
 
+Fourth model: **the Volcano**, sliced in half like a cake so you can see inside. It has 18 parts: crater,
+ash cloud, volcanic lightning, lava bombs, main vent, side vent, magma chamber, rock layers, mantle,
+tectonic plates, lava flow, steam vents, geyser, new island, volcanic rocks, farms, volcano scientist
+and a sleeping volcano. Instead of "Who works here?", each card ends with a "Try this!" experiment to do
+with a grown-up.
+
 Explored parts turn green and are remembered on the device; finding all 18 earns a trophy.
 
 No build step, no libraries, works offline once loaded.
@@ -128,6 +134,7 @@ js/iso.js             isometric drawing helpers + pinch/drag/zoom
 js/app.js             home screen, info cards, progress, read-aloud
 js/things/airport.js  the airport model and its texts (3D isometric)
 js/things/trains.js   the railway model and its texts (3D isometric)
+js/things/volcano.js  the volcano cutaway and its texts (flat drawing)
 js/things/body.js     the human body model and its texts (flat drawing, uses project: a => a)
 js/config.js          your settings (email, signature)
 js/ask.js             question sheet, mailbox and letters

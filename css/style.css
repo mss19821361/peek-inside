@@ -262,3 +262,27 @@ button { font-family: inherit; color: inherit; cursor: pointer; border: 0; }
 @keyframes flow { to { stroke-dashoffset: -21; } }
 .ripple { animation: ripple 3s ease-in-out infinite; }
 @keyframes ripple { 50% { opacity: .35; } }
+
+/* Volcano animations */
+.vflow { stroke-dasharray: 18 22; animation: flow 2.4s linear infinite; }
+.vlava { animation: vlava 1.2s linear infinite; }
+@keyframes vlava { to { stroke-dashoffset: -26; } }
+.vglow { animation: vglow 2.2s ease-in-out infinite; }
+@keyframes vglow { 50% { opacity: .78; } }
+.vnudge { animation: vnudge 2.4s ease-in-out infinite; }
+@keyframes vnudge { 50% { opacity: .55; } }
+.wisp { transform-box: fill-box; transform-origin: center; animation: wisp 2.4s ease-out infinite; opacity: 0; }
+@keyframes wisp { 0% { transform: translateY(0) scale(.6); opacity: .9; } 100% { transform: translateY(-46px) scale(2.2); opacity: 0; } }
+.billow { transform-box: fill-box; transform-origin: center; animation: billow 5s ease-in-out infinite; }
+@keyframes billow { 50% { transform: scale(1.08) translateY(-6px); } }
+.zap { opacity: 0; animation: zap 3.6s infinite; }
+.zap.z2 { animation-delay: 1.7s; }
+@keyframes zap { 0%, 62%, 72%, 100% { opacity: 0; } 64%, 70% { opacity: 1; } 67% { opacity: .2; } }
+.geyser { transform-box: fill-box; transform-origin: 50% 100%; animation: geyser 7s ease-in-out infinite; }
+@keyframes geyser { 0%, 55%, 100% { transform: scaleY(.04); opacity: 0; } 62% { transform: scaleY(1.05); opacity: 1; } 80% { transform: scaleY(.9); opacity: .9; } 92% { transform: scaleY(.2); opacity: .3; } }
+.blob { transform-box: fill-box; transform-origin: center; animation: blob 2.6s ease-in-out infinite; }
+@keyframes blob { 50% { transform: translateY(-10px) scale(1.4); opacity: .5; } }
+.zzz { animation: zzz 2.4s ease-in-out infinite; opacity: 0; }
+@keyframes zzz { 0% { opacity: 0; transform: translateY(6px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-14px); } }
+.seismo { stroke-dasharray: 60; animation: seismo 1.6s linear infinite; }
+@keyframes seismo { from { stroke-dashoffset: 60; } to { stroke-dashoffset: -60; } }

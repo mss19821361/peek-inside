@@ -4,8 +4,7 @@
   window.registerThing = t => THINGS.push(t);
 
   const COMING = [
-    { emoji: '🚢', name: 'Ship' }, { emoji: '🏰', name: 'Castle' }, { emoji: '🚀', name: 'Rocket' },
-    { emoji: '🌋', name: 'Volcano' }
+    { emoji: '🚢', name: 'Ship' }, { emoji: '🏰', name: 'Castle' }, { emoji: '🚀', name: 'Rocket' }
   ];
 
   const store = {
