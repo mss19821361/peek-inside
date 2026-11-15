@@ -4,7 +4,7 @@
   window.registerThing = t => THINGS.push(t);
 
   const COMING = [
-    { emoji: '🏰', name: 'Castle' }, { emoji: '🚀', name: 'Rocket' }
+    { emoji: '🏰', name: 'Castle' }
   ];
 
   const store = {
@@ -53,7 +53,7 @@
     const project = t.project || (a => ISO.P(...a));
     const L = Object.assign({ what: '🤔 What is it?', does: '⚙️ What happens here?', fact: '🤩 Wow fact!', who: '👷 Who works here?' }, t.labels || {});
     app.innerHTML = `<div class="scene" style="--accent:${t.color};--accent2:${t.color2};${t.bg ? 'background:' + t.bg : ''}">
-      <div class="clouds"><i></i><i></i><i></i></div>
+      ${t.noClouds ? '' : '<div class="clouds"><i></i><i></i><i></i></div>'}
       <svg id="svg" xmlns="http://www.w3.org/2000/svg"><defs id="defs"></defs><g id="world"></g><g id="pins"></g></svg>
       <div class="topbar">
         <button class="round" id="homeBtn" aria-label="Home">🏠</button>
@@ -148,6 +148,8 @@
           <section><h3>${L.what}</h3><p>${esc(p.what)}</p></section>
           <section><h3>${L.does}</h3><p>${esc(p.does)}</p>${steps}</section>
           <section class="fact"><h3>${L.fact}</h3><p>${esc(p.fact)}</p></section>
+          ${hwHtml(t, p)}
+          ${tcHtml(t, p)}
           <section><h3>${L.who}</h3><p>${esc(p.who)}</p></section>
         </div>
         ${window.PeekAsk && PeekAsk.enabled ? '<button class="askbtn" id="askBtn">❓ I have a question!</button>' : ''}
@@ -200,6 +202,21 @@
     const onKey = e => { if (e.key === 'Escape') closePanel(); };
     document.addEventListener('keydown', onKey);
     cleanup = () => { cancelAnimationFrame(raf); clearTimeout(hintTimer); view.destroy(); document.removeEventListener('keydown', onKey); };
+  }
+
+  /* ---------- How and Why (tap to reveal) ---------- */
+  function hwHtml(t, p) {
+    const list = (p.hw || []).concat(((window.HOWWHY || {})[t.id] || {})[p.id] || []);
+    if (!list.length) return '';
+    return `<section class="hw"><h3>❓ How and Why</h3>${list.map(([q, a]) =>
+      `<details class="hwq"><summary><span class="q">${esc(q)}</span><span class="tap">Tap to find out!</span></summary><p>${esc(a)}</p></details>`).join('')}</section>`;
+  }
+
+  function tcHtml(t, p) {
+    const list = (p.tc || []).concat(((window.THINKCOUNT || {})[t.id] || {})[p.id] || []);
+    if (!list.length) return '';
+    return `<section class="tc"><h3>🧮 Think &amp; Count</h3>${list.map(([q, a]) =>
+      `<details class="hwq tcq"><summary><span class="q">${esc(q)}</span><span class="tap">Think first, then tap!</span></summary><p>${esc(a)}</p></details>`).join('')}</section>`;
   }
 
   /* ---------- Read aloud ----------

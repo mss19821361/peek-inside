@@ -30,6 +30,28 @@ pool deck, lifeboats, cabins, restaurant, galley, theatre, engine room, water ma
 propeller, rudder, anchor, bow thruster, bulbous bow and hull. Waves roll, a dolphin jumps, the propeller
 spins, engine pistons pump, smoke puffs from the funnel and a spotlight sweeps the theatre stage.
 
+Four more models are drawn and ready but **switched off** for now (their files are not loaded).
+To switch one on, add its `<script src="js/things/NAME.js"></script>` line to `index.html` after ship.js,
+add `'js/things/NAME.js'` to the FILES list in `sw.js` (and bump the CACHE number), and upload its
+`js/things/NAME.js` file and `audio/NAME/` folder. They are inspired by the classic "How and Why" style
+of science books (all text and pictures are original):
+
+- **Stars & Planets**: the Sun, all eight planets, the Moon, asteroid belt, Pluto, a comet, the ISS,
+  a rocket, an astronaut, a space telescope and the Big Dipper.
+- **Weather**: the water cycle (sun, evaporation, clouds, rain, snow, river, sea, groundwater), hail,
+  thunder and lightning, a tornado, rainbow, wind turbines, fog, a weather station, balloon and satellite.
+- **Insects**: what makes an insect, bees and their hive, flowers and pollen, the butterfly life cycle
+  (caterpillar, chrysalis), ladybird, ants and their underground nest, dragonfly, grasshopper, fireflies,
+  dung beetle, praying mantis, stick insect, plus two "not insects" puzzles: the spider and the earthworm.
+- **Dinosaurs**: T. rex, Triceratops, Stegosaurus, Brachiosaurus, Velociraptor, Ankylosaurus,
+  Parasaurolophus, a nest, Archaeopteryx, a tiny mammal, prehistoric plants, footprints, the asteroid,
+  Pteranodon and a plesiosaur (not dinosaurs!), and underground: rock layers, a fossil and a fossil hunter.
+
+Every card in every model now also has two tap-to-reveal extras:
+
+- **❓ How and Why**: a curious question and its answer (`js/howwhy.js`, or `hw:` inside a model file).
+- **🧮 Think & Count**: a small maths or logic puzzle (`js/thinkcount.js`, or `tc:` inside a model file).
+
 Explored parts turn green and are remembered on the device; finding all 18 earns a trophy.
 
 No build step, no libraries, works offline once loaded.
@@ -142,6 +164,9 @@ js/things/trains.js   the railway model and its texts (3D isometric)
 js/things/ship.js     the cruise ship cutaway and its texts (flat drawing)
 js/things/volcano.js  the volcano cutaway and its texts (flat drawing)
 js/things/body.js     the human body model and its texts (flat drawing, uses project: a => a)
+js/things/space.js, weather.js, insects.js, dinosaurs.js   the new flat-drawing models
+js/howwhy.js          "How and Why" questions for the older models
+js/thinkcount.js      "Think & Count" puzzles for the older models
 js/config.js          your settings (email, signature)
 js/ask.js             question sheet, mailbox and letters
 answers.txt           your answers to the kids' questions
