@@ -25,6 +25,11 @@ tectonic plates, lava flow, steam vents, geyser, new island, volcanic rocks, far
 and a sleeping volcano. Instead of "Who works here?", each card ends with a "Try this!" experiment to do
 with a grown-up.
 
+Fifth model: **the Ship**, a cruise ship sliced open from the side. It has 18 parts: bridge, radar mast, funnel,
+pool deck, lifeboats, cabins, restaurant, galley, theatre, engine room, water maker, ballast tanks,
+propeller, rudder, anchor, bow thruster, bulbous bow and hull. Waves roll, a dolphin jumps, the propeller
+spins, engine pistons pump, smoke puffs from the funnel and a spotlight sweeps the theatre stage.
+
 Explored parts turn green and are remembered on the device; finding all 18 earns a trophy.
 
 No build step, no libraries, works offline once loaded.
@@ -134,6 +139,7 @@ js/iso.js             isometric drawing helpers + pinch/drag/zoom
 js/app.js             home screen, info cards, progress, read-aloud
 js/things/airport.js  the airport model and its texts (3D isometric)
 js/things/trains.js   the railway model and its texts (3D isometric)
+js/things/ship.js     the cruise ship cutaway and its texts (flat drawing)
 js/things/volcano.js  the volcano cutaway and its texts (flat drawing)
 js/things/body.js     the human body model and its texts (flat drawing, uses project: a => a)
 js/config.js          your settings (email, signature)

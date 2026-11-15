@@ -286,3 +286,27 @@ button { font-family: inherit; color: inherit; cursor: pointer; border: 0; }
 @keyframes zzz { 0% { opacity: 0; transform: translateY(6px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-14px); } }
 .seismo { stroke-dasharray: 60; animation: seismo 1.6s linear infinite; }
 @keyframes seismo { from { stroke-dashoffset: 60; } to { stroke-dashoffset: -60; } }
+
+/* Ship animations */
+.waveslide { animation: waveslide 4s linear infinite; }
+.waveslide.back { animation-duration: 3s; animation-direction: reverse; }
+@keyframes waveslide { to { transform: translateX(-40px); } }
+.sway { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 3s ease-in-out infinite; }
+@keyframes sway { 50% { transform: rotate(8deg); } }
+.slosh { animation: slosh 3.5s ease-in-out infinite; }
+@keyframes slosh { 50% { transform: translateX(-12px) translateY(1px); } }
+.piston { animation: piston .5s ease-in-out infinite; }
+@keyframes piston { 50% { transform: translateY(6px); } }
+.drip { animation: drip 1.2s ease-in infinite; opacity: 0; }
+@keyframes drip { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(14px); } }
+.propspin { animation: propspin 1.2s linear infinite; }
+.propspin.fast { animation-duration: .7s; }
+@keyframes propspin { to { transform: rotate(360deg); } }
+.stream { animation: stream .8s linear infinite; }
+@keyframes stream { to { stroke-dashoffset: -16; } }
+.spot { transform-box: view-box; transform-origin: 830px 372px; animation: spot 4s ease-in-out infinite; }
+@keyframes spot { 50% { transform: rotate(-7deg); opacity: .2; } }
+.smoke { transform-box: fill-box; transform-origin: center; animation: smoke 3.2s ease-out infinite; opacity: 0; }
+@keyframes smoke { 0% { opacity: .9; transform: translate(0,0) scale(.6); } 100% { opacity: 0; transform: translate(-60px,-50px) scale(2.6); } }
+.flag { transform-box: fill-box; transform-origin: 0 50%; animation: flag 1.4s ease-in-out infinite; }
+@keyframes flag { 50% { transform: skewY(-8deg) scaleX(.92); } }
