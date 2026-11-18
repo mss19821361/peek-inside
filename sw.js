@@ -1,6 +1,6 @@
 // Offline support. Network first (so updates you push show up), cache as fallback.
-const CACHE = 'peek-inside-v12';
-const FILES = ['./', 'index.html', 'css/style.css', 'js/config.js', 'js/iso.js', 'js/ask.js', 'js/howwhy.js', 'js/thinkcount.js', 'js/app.js', 'js/things/airport.js', 'js/things/body.js', 'js/things/trains.js', 'js/things/volcano.js', 'js/things/ship.js', 'js/things/space.js',
+const CACHE = 'peek-inside-v13';
+const FILES = ['./', 'index.html', 'css/style.css', 'js/config.js', 'js/iso.js', 'js/ask.js', 'js/howwhy.js', 'js/thinkcount.js', 'js/app.js', 'js/things/airport.js', 'js/things/body.js', 'js/things/trains.js', 'js/things/volcano.js', 'js/things/ship.js', 'js/things/space.js', 'js/things/dinosaurs.js',
   'answers.txt', 'manifest.json', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener('activate', e => {

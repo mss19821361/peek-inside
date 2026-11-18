@@ -30,7 +30,7 @@ pool deck, lifeboats, cabins, restaurant, galley, theatre, engine room, water ma
 propeller, rudder, anchor, bow thruster, bulbous bow and hull. Waves roll, a dolphin jumps, the propeller
 spins, engine pistons pump, smoke puffs from the funnel and a spotlight sweeps the theatre stage.
 
-**Stars & Planets** is switched on. Three more models are drawn and ready but **switched off** for now (their files are not loaded).
+**Stars & Planets** and **Dinosaurs** are switched on. Weather and Insects are drawn and ready but **switched off** for now (their files are not loaded).
 To switch one on, add its `<script src="js/things/NAME.js"></script>` line to `index.html` after ship.js,
 add `'js/things/NAME.js'` to the FILES list in `sw.js` (and bump the CACHE number), and upload its
 `js/things/NAME.js` file and `audio/NAME/` folder. They are inspired by the classic "How and Why" style
