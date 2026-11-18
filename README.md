@@ -30,7 +30,8 @@ pool deck, lifeboats, cabins, restaurant, galley, theatre, engine room, water ma
 propeller, rudder, anchor, bow thruster, bulbous bow and hull. Waves roll, a dolphin jumps, the propeller
 spins, engine pistons pump, smoke puffs from the funnel and a spotlight sweeps the theatre stage.
 
-**Stars & Planets** and **Dinosaurs** are switched on. Weather and Insects are drawn and ready but **switched off** for now (their files are not loaded).
+**Stars & Planets** and **Dinosaurs** are switched on. Weather, Insects, The Ocean, Electricity & Magnets, Rocks & Caves and Machines & Inventions are drawn and ready but **switched off** for now (their files are not loaded).
+They show on the home screen as locked "Coming soon" tiles (the COMING list in `js/app.js`); a tile unlocks by itself once its model file is loaded.
 To switch one on, add its `<script src="js/things/NAME.js"></script>` line to `index.html` after ship.js,
 add `'js/things/NAME.js'` to the FILES list in `sw.js` (and bump the CACHE number), and upload its
 `js/things/NAME.js` file and `audio/NAME/` folder. They are inspired by the classic "How and Why" style
@@ -46,6 +47,18 @@ of science books (all text and pictures are original):
 - **Dinosaurs**: T. rex, Triceratops, Stegosaurus, Brachiosaurus, Velociraptor, Ankylosaurus,
   Parasaurolophus, a nest, Archaeopteryx, a tiny mammal, prehistoric plants, footprints, the asteroid,
   Pteranodon and a plesiosaur (not dinosaurs!), and underground: rock layers, a fossil and a fossil hunter.
+- **The Ocean**: tides, waves, a dolphin, plankton, a sea turtle, a blue whale, a coral reef, a fish school,
+  a scuba diver, an octopus, a shark, jellyfish, a submarine, a giant squid, an anglerfish, deep-sea vents,
+  the deepest trench and the ocean zones.
+- **Electricity & Magnets**: a power station, pylons, a transformer, solar panels, a meter and fuse box,
+  wires, a light switch, a bulb, a battery, static electricity, magnets, a compass, an electric motor,
+  a toaster, a plug socket, an electromagnet, an electric car and a bike dynamo.
+- **Rocks & Caves**: a cave, stalactites, stalagmites, bats, cave paintings, an underground lake,
+  seashell fossils, rock layers, a canyon, soil, magma and granite, marble, a geode, a gold vein,
+  a coal seam, diamonds, a mine and a rock hunter.
+- **Machines & Inventions**: lever, pulley, wheel and axle, ramp, wedge, Archimedes' screw, water wheel,
+  windmill, crane, bicycle, gears, spring, 3D printer, steam engine, pendulum clock, printing press,
+  a robot arm and a young inventor.
 
 Every card in every model now also has two tap-to-reveal extras:
 

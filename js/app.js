@@ -3,8 +3,16 @@
   const THINGS = [];
   window.registerThing = t => THINGS.push(t);
 
+  // Topics shown as locked "Coming soon" tiles. When a topic's model file is loaded
+  // (its <script> line is in index.html), its locked tile disappears automatically.
   const COMING = [
-    { emoji: '🏰', name: 'Castle' }
+    { id: 'weather', emoji: '🌦️', name: 'Weather' },
+    { id: 'insects', emoji: '🐞', name: 'Insects' },
+    { id: 'ocean', emoji: '🐋', name: 'The Ocean' },
+    { id: 'electricity', emoji: '⚡', name: 'Electricity & Magnets' },
+    { id: 'rocks', emoji: '💎', name: 'Rocks & Caves' },
+    { id: 'machines', emoji: '⚙️', name: 'Machines & Inventions' },
+    { id: 'castle', emoji: '🏰', name: 'Castle' }
   ];
 
   const store = {
@@ -36,7 +44,7 @@
         <span class="tile-bar"><i style="width:${pct}%"></i></span>
         <span class="tile-count">${n === total ? '🏆 All explored!' : `⭐ ${n} of ${total} explored`}</span>
       </button>`;
-    }).join('') + COMING.map(c => `<div class="tile soon"><span class="tile-emoji">${c.emoji}</span><span class="tile-name">${esc(c.name)}</span><span class="tile-tag">Coming soon</span><span class="lock">🔒</span></div>`).join('');
+    }).join('') + COMING.filter(c => !THINGS.some(t => t.id === c.id)).map(c => `<div class="tile soon"><span class="tile-emoji">${c.emoji}</span><span class="tile-name">${esc(c.name)}</span><span class="tile-tag">Coming soon</span><span class="lock">🔒</span></div>`).join('');
     app.innerHTML = `<div class="home">
       <div class="clouds"><i></i><i></i><i></i></div>
       <div class="home-mail">${window.PeekAsk ? PeekAsk.mailButton() : ''}</div>
